@@ -1,0 +1,107 @@
+C51 COMPILER V9.00   MAIN                                                                  09/24/2019 20:58:16 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: G:\2.develop\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /******************************************************************************
+   2          ----------------本例程仅供学习使用，未经作者允许，不得用于其他用途。-----------
+   3          ------------------------版权所有，仿冒必究！-----------------------------------
+   4          ----------------淘宝网址：Ilovemcu.taobao.com----------------------------------
+   5              STC89C52/STC12C5A60S2带液晶接口的最小系统：
+   6                  https://item.taobao.com/item.htm?id=26410708738
+   7              FSR薄膜压力传感器 圆形：
+   8                  https://item.taobao.com/item.htm?id=564232635110
+   9              FSR薄膜压力传感器 长条形：
+  10                  https://item.taobao.com/item.htm?id=564085737164
+  11              杜邦线：
+  12                  https://item.taobao.com/item.htm?id=562848773709
+  13                  LCD1602液晶：
+  14                          https://item.taobao.com/item.htm?id=21282627385
+  15          ------------------作者：神秘藏宝室---------------------------------------------*/
+  16          
+  17          #include "main.h"
+  18          #include "LCD1602.h"
+  19          
+  20          
+  21          
+  22          //定义变量
+  23          unsigned char KEY_NUM = 0;   
+  24          int count = 0;
+  25          int state = 0;
+  26                  
+  27          
+  28          //****************************************************
+  29          //主函数
+  30          //****************************************************
+  31          void main()
+  32          {
+  33   1              Init_LCD1602();
+  34   1              LCD1602_write_com(0x80);
+  35   1              LCD1602_write_word("welcome to use!");
+  36   1              while(1)
+  37   1              {
+  38   2              scanSensor();
+  39   2                      if(KEY_NUM == 1)
+  40   2                      {
+  41   3                              KEY_NUM = 0;
+  42   3                              LCD1602_write_com(0x80+0x40);
+  43   3                              LCD1602_write_word("count =");
+  44   3                              LCD1602_write_data(count%10000/1000+0x30);
+  45   3                              LCD1602_write_data(count%1000/100+0x30);
+  46   3                              LCD1602_write_data(count%100/10+0x30);
+  47   3                              LCD1602_write_data(count%10+0x30);
+  48   3      
+  49   3                              count++;
+  50   3                              
+  51   3                              if(state == 2)
+  52   3                                state = 0;
+  53   3                      }
+  54   2      
+  55   2              }
+C51 COMPILER V9.00   MAIN                                                                  09/24/2019 20:58:16 PAGE 2   
+
+  56   1      }
+  57          
+  58          void scanSensor()
+  59          {
+  60   1      //      SENSOR = 1;
+  61   1              if(SENSOR == 0)
+  62   1              {
+  63   2                      Delay_ms(10);
+  64   2                      if(SENSOR == 0) 
+  65   2                      {
+  66   3                        while(SENSOR == 0);
+  67   3                        KEY_NUM = 1;
+  68   3                      } 
+  69   2              }
+  70   1      }
+  71          
+  72          
+  73          //****************************************************
+  74          //MS延时函数
+  75          //****************************************************
+  76          void Delay_ms(unsigned int n)
+  77          {
+  78   1              unsigned int  i,j;
+  79   1              for(i=0;i<n;i++)
+  80   1                      for(j=0;j<123;j++);
+  81   1      }
+  82          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    231    ----
+   CONSTANT SIZE    =     24    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      5    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

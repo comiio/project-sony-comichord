@@ -1,0 +1,5 @@
+-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\USER -I..\CORE -I..\STM32_FWLIB\inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\MyCode\led -I..\MyCode\Buzzer -I..\MyCode\HX711 -I..\MyCode\TFT 
+-I E:\MDK4.70A\ARM\RV31\INC 
+-I E:\MDK4.70A\ARM\CMSIS\Include 
+-I E:\MDK4.70A\ARM\Inc\ST\STM32F10x 
+-DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -o "..\OBJ\hx711.o" --omf_browse "..\OBJ\hx711.crf" --depend "..\OBJ\hx711.d" "..\MyCode\HX711\HX711.c"
